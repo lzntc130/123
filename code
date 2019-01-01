@@ -1,0 +1,550 @@
+Circle.h
+#pragma once
+#include "Plane.h"
+class circle:public Plane
+{
+public:
+	virtual void input();
+	virtual double area(double d_radii);
+	virtual double perimeter(double d_radii);
+	virtual void output();
+private:
+	double d_radii;
+};
+Cone.h
+#pragma once
+#include "Solid.h"
+class cone: public Solid
+{
+public:
+	virtual void input();
+	virtual double volume(double d_radii,double d_high);
+	virtual double surfaceArea(double d_radii,double d_high);
+	virtual void output();
+private:
+	double d_radii,d_high;
+};
+Cylinder.h
+#pragma once
+#include "Solid.h"
+class cylinder: public Solid
+{
+public:
+	virtual void input();
+	virtual double volume(double d_radii,double d_high);
+	virtual double surfaceArea(double d_radii,double d_high);
+	virtual void output();
+private:
+	double d_radii,d_high;
+};
+Diamond.h
+#include "stdafx.h"
+#include "Plane.h"
+class diamond:public Plane{//菱形
+private:
+	double d_length;
+	double d_angle;
+public:
+	virtual void input();
+	virtual double area();
+	virtual double perimeter();
+	virtual void output();
+};
+n_pyramid.h
+#pragma once
+#include "Solid.h"
+class n_pyramid: public Solid
+{
+public:
+	virtual void input();
+	virtual double volume(double d_radii,double d_high,int n);
+	virtual double surfaceArea(double d_radii,double d_high,int n);
+	virtual void output();
+private:
+	double d_long,d_wide;
+	int n;
+};
+Parallelg.h
+#include "stdafx.h"
+#include "Plane.h"
+class parallelg:public Plane{//平行四边形
+public:
+	virtual void input();
+	virtual double area();
+	virtual double perimeter();
+	virtual void output();
+private:
+	double d_length;
+	double d_w;
+	double d_high;
+};
+Plane.h
+#pragma once
+#include <iostream>
+using namespace std;
+class Plane
+{
+public:
+	virtual void input(){}
+	virtual double area(){return 0;}
+	virtual double perimeter(){return 0;}
+	virtual void output(){}
+private:
+};
+Quardrangular.h
+#pragma once
+#include "Solid.h"
+class quadrangular: public Solid
+{
+public:
+	virtual void input();
+	virtual double volume(double d_long,double d_wide,double d_high);
+	virtual double surfaceArea(double d_long,double d_wide,double d_high);
+	virtual void output();
+private:
+	double d_long,d_wide,d_high;
+};
+Rectangle.h
+#pragma once
+#include "Plane.h"
+class rectangle:public Plane
+{
+public:
+	virtual void input();
+	virtual double area(double d_long,double d_wide);
+	virtual double perimeter(double d_long,double d_wide);
+	virtual void output();
+private:
+	double d_long,d_wide;
+};
+Sector.h
+#pragma once
+#include "Plane.h"
+class sector:public Plane
+{
+public:
+	virtual void input();
+	virtual double area(double d_radii,int angle);
+	virtual double perimeter(double d_radii,int angle);
+	virtual void output();
+private:
+	double d_radii;
+	int angle;
+};
+Solid.h
+#pragma once
+#include <iostream>
+using namespace std;
+class Solid
+{
+public:
+	virtual void input(){}
+	virtual double volume(){return 0;}
+	virtual double surfaceArea(){return 0;}
+	virtual void output(){}
+private:
+};
+Ti.h
+#pragma once
+#include "Plane.h"
+class ti:public Plane
+{
+public:
+	virtual void input();
+	virtual double area(double d_a,double d_b,double d_c,double d_d);
+	virtual double perimeter(double d_a,double d_b,double d_c,double d_d);
+	virtual void output();
+private:
+	double d_a,d_b,d_c,d_d;
+};
+Triangle.h
+#pragma once
+#include "Plane.h"
+class triangle:public Plane
+{
+public:
+	virtual void input();
+	virtual double area(double d_a,double d_b,double d_c);
+	virtual double perimeter(double d_a,double d_b,double d_c);
+	virtual void output();
+private:
+	double d_a,d_b,d_c;
+};
+Circle.cpp
+#include "stdafx.h"
+#include "circle.h"
+#include <fstream>
+void circle::input()
+{
+	cout<<"请输入圆的半径：";
+	cin>>d_radii;
+}
+double circle::area(double d_radii)
+{
+	return 3.14*d_radii*d_radii;
+}
+double circle:: perimeter(double d_radii)
+{
+	return 2*3.14*d_radii;
+}
+void circle::output()
+{
+	ofstream fout;
+	fout.open("jisuan.txt",ios::out|ios::app);
+	cout<<"这个圆的面积和周长分别是："<<area(d_radii)<<"  "<<perimeter(d_radii)<<endl;
+	fout<<"圆的半径是："<<d_radii<<endl;
+	fout<<"圆的面积是："<<area(d_radii)<<endl;
+	fout<<"圆的周长是："<<perimeter(d_radii)<<endl;
+	fout<<"================计算完毕================"<<endl;
+}
+Cone.cpp
+#include "StdAfx.h"
+#include "cone.h"
+#include <math.h>
+#include<fstream>
+void cone::input()
+{
+	cout<<"请输入圆锥的底面半径和高：";
+	cin>>d_radii>>d_high;
+}
+double cone::volume(double d_radii,double d_high)
+{
+	return (3.14*d_radii*d_radii*d_high)/3;
+}
+double cone:: surfaceArea(double d_radii,double d_high)
+{
+	double d_l=sqrt(d_radii*d_radii+d_high*d_high);
+	return 3.14*d_radii*d_radii+3.14*d_radii*d_l;
+}
+void cone::output()
+{
+	ofstream fout;
+	fout.open("jisuan.txt",ios::out|ios::app);
+	cout<<"这个圆锥的体积和表面积分别是："<<volume(d_radii,d_high)<<"  "<<surfaceArea(d_radii,d_high)<<endl;
+	fout<<"圆锥底面半径是："<<d_radii<<" 高是："<<d_high<<endl;
+	fout<<"圆锥的体积是："<<volume(d_radii,d_high)<<endl;
+	fout<<"圆锥的表面积是:"<<surfaceArea(d_radii,d_high);
+	fout<<"================计算完毕================"<<endl;
+}
+Cylinder.cpp
+#include "StdAfx.h"
+#include "cylinder.h"
+#include <fstream>
+void cylinder::input()
+{
+	cout<<"请输入圆柱的底面半径和高：";
+	cin>>d_radii>>d_high;
+}
+double cylinder::volume(double d_radii,double d_high)
+{
+	return 3.14*d_radii*d_radii*d_high;
+}
+double cylinder:: surfaceArea(double d_radii,double d_high)
+{
+	return 2*3.14*d_radii*d_radii+2*3.14*d_radii*d_high;
+}
+void cylinder::output()
+{
+	ofstream fout;
+	fout.open("jisuan.txt",ios::out|ios::app);
+	
+	cout<<"这个圆柱的体积和表面积分别是："<<volume(d_radii,d_high)<<"  "<<surfaceArea(d_radii,d_high)<<endl;
+	fout<<"圆柱的底面半径是："<<d_radii<<"高是："<<d_high<<endl;
+	fout<<"圆柱的体积是:"<<volume(d_radii,d_high)<<endl;
+	fout<<"圆柱的表面积是:"<<surfaceArea(d_radii,d_high)<<endl;
+	fout<<"================计算完毕================"<<endl;
+}
+Diamond.cpp
+#include "stdafx.h"
+#include "diamond.h"
+#include <math.h>
+#include <fstream>
+#define PI 3.14159265
+void diamond::input(){
+	cout<<"请输入菱形的边长和角度(0-180)(空格隔开)"<<endl;
+	cin>>d_length>>d_angle;
+}
+double diamond::area(){
+	return d_length*d_length*sin(d_angle*PI/180);
+}
+double diamond::perimeter(){
+	return 4*d_length;
+}
+void diamond::output(){
+	ofstream fout;
+	fout.open("jisuan.txt",ios::out|ios::app);
+	cout<<"菱形的面积和周长是："<<area()<<" "<<perimeter()<<endl;
+	fout<<"菱形的边长和角度是："<<d_length<<" "<<d_angle<<endl;
+	fout<<"菱形的面积是："<<area()<<endl;
+	fout<<"菱形的周长是："<<perimeter()<<endl;
+	fout<<"================计算完毕================"<<endl;
+}
+n_pyramid.cpp
+#include "stdafx.h"
+#include "n_pyramid.h"
+#include <math.h> 
+#include <fstream>
+void n_pyramid::input()
+{
+	cout<<"请输入n棱锥中的n："<<endl;
+	cin>>n;
+	cout<<"请输入底边边长和高："<<endl;
+	cin>>d_long>>d_wide;
+}
+double n_pyramid::volume(double d_long,double d_wide,int n)
+{
+		return d_long*d_long*n*0.25*cos(3.1416/n)/sin((3.1416/n))*d_wide/3.0;	
+}
+double n_pyramid::surfaceArea(double d_long,double d_wide,int n)
+{  double r;
+	r=d_long*cos(3.1416/n)*0.5/sin(3.1416/n);
+	return d_long*d_long*n*0.25*cos(3.1416/n)/sin((3.1416/n))+sqrt(r*r+d_wide*d_wide)*d_long/2.0*n;
+}
+void n_pyramid::output()
+{
+	ofstream fout;
+	fout.open("jisuan.txt",ios::out|ios::app);
+	
+	cout<<"这个n棱锥的体积和表面积分别是："<<volume( d_long,d_wide,n)<<"  "<<surfaceArea(d_long,d_wide,n)<<endl;
+	fout<<"这是个"<<n<<"棱锥"<<endl;
+	fout<<"底边边长是:"<<d_long<<"高是："<<d_wide<<endl;
+	fout<<"体积是："<<volume(d_long,d_wide,n)<<endl;
+	fout<<"表面积是："<<surfaceArea(d_long,d_wide,n)<<endl;
+
+	fout<<"================计算完毕================"<<endl;
+}
+Parallelg.cpp
+#include "stdafx.h"
+#include "parallelg.h"
+#include <fstream>
+void parallelg::input(){
+	cout<<"请输入平行四边形的底边临边和高：(三个数空格隔开)"<<endl;
+	cin>>d_length>>d_w>>d_high;
+}
+double parallelg::area(){
+	return d_length*d_high;
+}
+double parallelg::perimeter(){
+	return 2*(d_length+d_w);
+}
+void parallelg::output(){
+	ofstream fout;
+	fout.open("jisuan.txt",ios::out|ios::app);
+	if(d_w<d_high){
+		cout<<"构不成平行四边形"<<endl;
+		fout<<"四边形底边侧边和高分别是："<<d_length<<" "<<d_w<<" "<<d_high<<endl;
+		fout<<"此参数构不成平行四边形！"<<endl;
+		exit(0);//return 0;
+	}
+	cout<<"平行四边形面积是："<<area()<<" 周长是："<<perimeter()<<endl;
+	fout<<"平行四边形的底边是："<<d_length<<" 侧边是："<<d_w<<" 高是："<<endl;
+	fout<<"平行四边形面积是："<<area()<<endl;
+	fout<<"平行四边形的周长是："<<perimeter()<<endl;
+	fout<<"================计算完毕================"<<endl;
+	//return 0;
+}
+Quadrangular.cpp
+#include "StdAfx.h"
+#include "quadrangular.h"
+#include <fstream>
+
+void quadrangular::input()
+{
+	cout<<"请输入长方体的长宽高：";
+	cin>>d_long>>d_wide>>d_high;
+}
+double quadrangular::volume(double d_long,double d_wide,double d_high)
+{
+	return d_long*d_wide*d_high;
+}
+double quadrangular:: surfaceArea(double d_long,double d_wide,double d_high)
+{
+	return 2*(d_long*d_wide+d_long*d_high+d_wide*d_high);
+}
+void quadrangular::output()
+{
+	ofstream fout;
+	fout.open("jisuan.txt",ios::out|ios::app);
+	cout<<"这个长方体的体积和表面积分别是："<<volume(d_long,d_wide,d_high)<<"  "<<surfaceArea(d_long,d_wide,d_high)<<endl;
+	fout<<"长方体的长是："<<d_long<<"宽是："<<d_wide<<"高是："<<d_high<<endl;
+	fout<<"长方体的体积是："<<volume(d_long,d_wide,d_high)<<endl;
+	fout<<"长方体的表面积是："<<surfaceArea(d_long,d_wide,d_high)<<endl;
+
+	fout<<"================计算完毕================"<<endl;
+}
+Rectangle.cpp
+#include "stdafx.h"
+#include "rectangle.h"
+#include <fstream>
+void rectangle::input()
+{
+	cout<<"请输入矩形的长和宽：";
+	cin>>d_long>>d_wide;
+}
+double rectangle::area(double d_long,double d_wide)
+{
+	return d_long*d_wide;
+}
+double rectangle:: perimeter(double d_long,double d_wide)
+{
+	return (d_long+d_wide)*2;
+}
+void rectangle::output()
+{
+	ofstream fout;
+	fout.open("jisuan.txt",ios::out|ios::app);
+	
+	cout<<"这个矩形的面积和周长分别是："<<area(d_long,d_wide)<<"  "<<perimeter(d_long,d_wide)<<endl;
+	fout<<"矩形的长是："<<d_long<<"宽是："<<d_wide<<endl;
+	fout<<"矩形的面积是："<<area(d_long,d_wide)<<endl;
+	fout<<"矩形的周长是："<<perimeter(d_long,d_wide)<<endl;
+	fout<<"================计算完毕================"<<endl;
+}
+Sector.cpp
+#include "stdafx.h"
+#include "sector.h"
+#include <fstream>
+void sector::input()
+{
+	cout<<"请输入扇形的半径和中心角的度数（角度制0~360）";
+	cin>>d_radii>>angle;
+}
+double sector::area(double d_radii,int angle)
+{
+	return 3.14*d_radii*d_radii*angle/360;
+}
+double sector:: perimeter(double d_radii,int angle)
+{
+	return 2*3.14*d_radii*angle/360+2*d_radii;
+}
+void sector::output()
+{
+	ofstream fout;
+	fout.open("jisuan.txt",ios::out|ios::app);
+	
+	cout<<"这个扇形的面积和周长分别是："<<area(d_radii,angle)<<"  "<<perimeter(d_radii,angle)<<endl;
+	fout<<"扇形半径是："<<d_radii<<"角度为："<<angle<<endl;
+	fout<<"扇形面积是："<<area(d_radii,angle)<<endl;
+	fout<<"扇形周长是；"<<perimeter(d_radii,angle)<<endl;
+	fout<<"================计算完毕================"<<endl;
+}
+Main.cpp
+int _tmain(int argc, _TCHAR* argv[])
+{
+	int n,x;
+	Plane* pPlane;
+	Solid* pSolid;
+	while(1)
+	{
+
+	cout<<"请问您选的是平面图形还是立体图形 0：平面    1：立体"<<endl;
+	cin>>x;
+	if(x==0)
+	{
+	
+		cout<<"请输入对应数字选择计算什么形状：\n1：矩形  2：圆形  3：三角形\n4:扇形   5：梯形  6:平行四边形\n7:菱形"<<endl;  //4：四棱柱  5：圆柱  6：圆锥
+	cin>>n;
+	
+
+	
+		if(n==1)
+		{
+			pPlane=new rectangle();
+			pPlane->input();
+			pPlane->output();
+			delete pPlane;
+		}
+		else if(n==2)
+		{
+			pPlane=new circle();
+			pPlane->input();
+			pPlane->output();
+			delete pPlane;
+		}
+		else if(n==3)
+			{
+				pPlane=new triangle();
+				pPlane->input();
+				pPlane->output();
+				delete pPlane;
+			}
+		else if(n==4)
+			{
+				pPlane=new sector();
+				pPlane->input();
+				pPlane->output();
+				delete pPlane;
+			}
+		else if(n==5)
+			{
+				pPlane=new ti();
+				pPlane->input();
+				pPlane->output();
+				delete pPlane;
+			}
+		else if(n==6){
+			pPlane=new parallelg();
+			pPlane->input();
+			pPlane->output();
+			delete pPlane;
+		}
+		else if(n==7){
+			pPlane=new diamond();
+			pPlane->input();
+			pPlane->output();
+			delete pPlane;
+		}
+		else cout<<"输入错误"<<endl;
+		cout<<"====================================\n"<<endl;
+	}
+	
+	if(x==1)
+	{   cout<<"请输入对应数字选择计算什么形状：\n1：长方体  2：圆柱  3：圆锥   4：正n棱锥  "<<endl;  
+	cin>>n;
+		  if(n==1)
+			{
+				pSolid=new quadrangular();
+				pSolid->input();
+				pSolid->output();
+				delete pSolid;
+			}
+		 else if(n==2)
+			{
+				pSolid=new cylinder();
+				pSolid->input();
+				pSolid->output();
+				delete pSolid;
+			}
+		 else if(n==3)
+			{
+				pSolid=new cone();
+				pSolid->input();
+				pSolid->output();
+				delete pSolid;
+			}
+		 	 else if(n==4)
+			{
+				pSolid=new n_pyramid();
+				pSolid->input();
+				pSolid->output();
+				delete pSolid;
+			}
+		 else cout<<"输入错误"<<endl;
+		cout<<"====================================\n"<<endl;
+
+	}//if(x==1)
+
+
+
+	
+	
+	
+	
+	}//while(1)
+
+
+
+	
+	system("pause");
+	return 0;
+}
